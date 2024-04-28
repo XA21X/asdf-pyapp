@@ -208,8 +208,12 @@ install_version() {
   "$venv_path"/bin/python3 -m pip install ${pip_args[@]+"${pip_args[@]}"} --upgrade setuptools
   "$venv_path"/bin/python3 -m pip install ${pip_args[@]+"${pip_args[@]}"} --upgrade pip wheel
 
+  if [[ -f "$plugin_dir"/extras ]]; then
+    extras_arg="[$(<"$plugin_dir"/extras)]"
+  fi
+
   # Install the App
-  "$venv_path"/bin/python3 -m pip install "$package"=="$app_version"
+  "$venv_path"/bin/python3 -m pip install "$package${extras_arg-}==$app_version"
 
   # Set up a venv for the linker helper
   local link_apps_venv="$install_path"/tmp/link_apps

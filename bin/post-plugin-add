@@ -5,3 +5,7 @@ set -euo pipefail
 if [[ "${ASDF_PYAPP_INCLUDE_DEPS-}" = "1" ]]; then
   touch "$ASDF_PLUGIN_PATH/include_deps"
 fi
+
+if [[ -n "${ASDF_PYAPP_EXTRAS-}" ]]; then
+  echo "$ASDF_PYAPP_EXTRAS" > "$ASDF_PLUGIN_PATH/extras"
+fi
